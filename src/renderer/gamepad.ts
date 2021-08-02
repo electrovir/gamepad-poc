@@ -1,11 +1,11 @@
 var haveEvents = 'ongamepadconnected' in window;
-var controllers = {};
+var controllers: any = {};
 
-export function controllerConnected(e) {
+export function controllerConnected(e: GamepadEvent) {
     addGamepad(e.gamepad);
 }
 
-function addGamepad(gamepad) {
+function addGamepad(gamepad: Gamepad) {
     controllers[gamepad.index] = gamepad;
 
     var d = document.createElement('div');
@@ -21,7 +21,7 @@ function addGamepad(gamepad) {
         var e = document.createElement('span');
         e.className = 'button';
         //e.id = "b" + i;
-        e.innerHTML = i;
+        e.innerHTML = String(i);
         b.appendChild(e);
     }
 
@@ -36,7 +36,7 @@ function addGamepad(gamepad) {
         //p.id = "a" + i;
         p.setAttribute('max', '2');
         p.setAttribute('value', '1');
-        p.innerHTML = i;
+        p.innerHTML = String(i);
         a.appendChild(p);
     }
 
@@ -52,13 +52,13 @@ function addGamepad(gamepad) {
     requestAnimationFrame(updateStatus);
 }
 
-export function controllerDisconnected(e) {
+export function controllerDisconnected(e: GamepadEvent) {
     removegamepad(e.gamepad);
 }
 
-function removegamepad(gamepad) {
+function removegamepad(gamepad: Gamepad) {
     var d = document.getElementById('controller' + gamepad.index);
-    document.body.removeChild(d);
+    document.body.removeChild(d!);
     delete controllers[gamepad.index];
 }
 
@@ -73,7 +73,7 @@ function updateStatus() {
     for (j in controllers) {
         var controller = controllers[j];
         var d = document.getElementById('controller' + j);
-        var buttons = d.getElementsByClassName('button');
+        var buttons = Array.from(d!.getElementsByClassName('button')) as HTMLElement[];
 
         for (i = 0; i < controller.buttons.length; i++) {
             var b = buttons[i];
@@ -85,20 +85,20 @@ function updateStatus() {
             }
 
             var pct = Math.round(val * 100) + '%';
-            b.style.backgroundSize = pct + ' ' + pct;
+            b!.style.backgroundSize = pct + ' ' + pct;
 
             if (pressed) {
-                b.className = 'button pressed';
+                b!.className = 'button pressed';
             } else {
-                b.className = 'button';
+                b!.className = 'button';
             }
         }
 
-        var axes = d.getElementsByClassName('axis');
+        var axes = d!.getElementsByClassName('axis');
         for (i = 0; i < controller.axes.length; i++) {
             var a = axes[i];
-            a.innerHTML = i + ': ' + controller.axes[i].toFixed(4);
-            a.setAttribute('value', controller.axes[i] + 1);
+            a!.innerHTML = i + ': ' + controller.axes[i].toFixed(4);
+            a!.setAttribute('value', controller.axes[i] + 1);
         }
     }
 
@@ -108,8 +108,8 @@ function updateStatus() {
 function scangamepads() {
     var gamepads = navigator.getGamepads
         ? navigator.getGamepads()
-        : navigator.webkitGetGamepads
-        ? navigator.webkitGetGamepads()
+        : (navigator as any).webkitGetGamepads
+        ? (navigator as any).webkitGetGamepads()
         : [];
     for (var i = 0; i < gamepads.length; i++) {
         if (gamepads[i]) {

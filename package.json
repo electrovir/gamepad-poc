@@ -17,6 +17,7 @@
     },
     "scripts": {
         "start": "snowpack dev",
+        "start:tron": "electron-snowpack dev",
         "format": "virmator format"
     },
     "dependencies": {
@@ -24,6 +25,10 @@
         "virmator": "^0.0.7"
     },
     "devDependencies": {
-        "electron": "^13.1.7"
+        "electron": "^13.1.7",
+        "electron-snowpack": "^0.12.0"
+    },
+    "build": {
+        "extends": "electron-snowpack/config/electron-builder.js"
     }
 }

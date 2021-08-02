@@ -9,5 +9,6 @@
         "noImplicitThis": true,
         "noUncheckedIndexedAccess": true,
         "strict": true
-    }
+    },
+    "extends": "electron-snowpack/config/tsconfig.json"
 }
