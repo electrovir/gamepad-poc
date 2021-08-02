@@ -1,0 +1,29 @@
+{
+    "name": "gamepad-poc",
+    "version": "0.0.1",
+    "private": true,
+    "description": "Proof of concept for reading gamepad input",
+    "homepage": "https://github.com/electrovir/gamepad-poc",
+    "bugs": {
+        "url": "https://github.com/electrovir/gamepad-poc/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/electrovir/gamepad-poc"
+    },
+    "license": "MIT",
+    "author": {
+        "name": "electrovir"
+    },
+    "scripts": {
+        "start": "snowpack dev",
+        "format": "virmator format"
+    },
+    "dependencies": {
+        "snowpack": "^3.8.3",
+        "virmator": "^0.0.7"
+    },
+    "devDependencies": {
+        "electron": "^13.1.7"
+    }
+}
