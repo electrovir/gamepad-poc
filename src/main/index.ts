@@ -1,15 +1,17 @@
 import {app, BrowserWindow} from 'electron';
 import {getAssetURL} from 'electron-snowpack';
-const path = require('path');
+import {join} from 'path';
 
-let mainWindow: BrowserWindow | null | undefined;
+// originally from https://github.com/karolis-sh/electron-snowpack/blob/a18a2d0a231c5dda079d88779ad62fbb482fb717/examples/hello-world-typescript/src/main/index.ts
+
+let mainWindow: BrowserWindow | undefined;
 
 function createMainWindow(): BrowserWindow {
     const window = new BrowserWindow({
         width: 800,
         height: 600,
         webPreferences: {
-            preload: path.join(__dirname, 'preload.js'),
+            preload: join(__dirname, 'preload.js'),
         },
     });
 
@@ -20,15 +22,16 @@ function createMainWindow(): BrowserWindow {
     window.loadURL(getAssetURL('index.html'));
 
     window.on('closed', (): void => {
-        mainWindow = null;
+        mainWindow = undefined;
     });
 
-    window.webContents.on('devtools-opened', (): void => {
-        window.focus();
-        setImmediate((): void => {
-            window.focus();
-        });
-    });
+    // // automatically focus the window when dev tools are opened
+    // window.webContents.on('devtools-opened', (): void => {
+    //     window.focus();
+    //     setImmediate((): void => {
+    //         window.focus();
+    //     });
+    // });
 
     return window;
 }
@@ -43,7 +46,7 @@ app.on('window-all-closed', (): void => {
 
 app.on('activate', (): void => {
     // on macOS it is common to re-create a window even after all windows have been closed
-    if (mainWindow === null) {
+    if (mainWindow == undefined) {
         mainWindow = createMainWindow();
     }
 });
