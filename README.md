@@ -15,28 +15,28 @@ Open your browser to http://localhost:61016, or whatever URL is printed on your 
 
 # Results
 
-**tl;dr**: Chrome or Chromium in Electron is the most consistent experience, even if it does not follow the expected specs.
+**tl;dr**: Chrome or Chromium in Electron is the most consistent experience, even if it does not follow the expected specs. (For example, Chrome has a hard max of 4 controllers.)
 
 Empty spots will be filled in over time. Feel free to contribute!
 
-| OS          | OS version     | Browser                          | Browser version | Wired Xbox 360 Controller | Wireless Xbox 360 Controller | Switch Pro Controller via Bluetooth | PS3 Controller via Bluetooth | PS2 controller with [Raphnet](https://www.raphnet-tech.com/products/psx_to_usb/index.php) USB adapter |
-| ----------- | -------------- | -------------------------------- | --------------- | ------------------------- | ---------------------------- | ----------------------------------- | ---------------------------- | ----------------------------------------------------------------------------------------------------- |
-| **macOS**   | Big Sur 11.5.1 | Safari<sup>10,11</sup>           | 14.1.2          | ❌ &nbsp;<sup>1</sup>     | ❌ &nbsp;<sup>4</sup>        | ✅ &nbsp;<sup>3,8,9</sup>           |
-| macOS       | Big Sur 11.5.1 | Chrome<sup>7</sup>               | 92.0.4515.107   | ✅ &nbsp;<sup>2</sup>     | ❌ &nbsp;<sup>4</sup>        | ✅ &nbsp;<sup>3</sup>               |
-| macOS       | Big Sur 11.5.1 | Firefox                          | 90.0.2          | ❌ &nbsp;<sup>1</sup>     | ❌ &nbsp;<sup>4</sup>        | ❌ &nbsp;<sup>1</sup>               |
-| macOS       | Big Sur 11.5.1 | Chromium in Electron<sup>7</sup> | 91 in 13.1.7    | ✅ &nbsp;<sup>2</sup>     | ❌ &nbsp;<sup>4</sup>        | ✅ &nbsp;<sup>3</sup>               |
-| **Ubuntu**  | 20.04          | Chrome<sup>7</sup>               | 92.0.4515.107   | ✅                        |                              | ✅                                  |
-| Ubuntu      | 20.04          | Chromium<sup>7</sup>             | 92.0.4515.107   | ❌ &nbsp;<sup>6</sup>     |                              | ❌ &nbsp;<sup>6</sup>               |
-| Ubuntu      | 20.04          | Firefox                          | 90.0            | ✅ &nbsp;<sup>5</sup>     |                              | ✅                                  |
-| Ubuntu      | 20.04          | Chromium in Electron<sup>7</sup> | 91 in 13.1.7    | ✅                        |                              | ✅                                  |
-| **Windows** | 10             | Chrome<sup>7</sup>               |                 |                           |                              |                                     |
-| Windows     | 10             | Firefox                          |                 |                           |                              |                                     |
-| Windows     | 10             | Edge                             |                 |                           |                              |                                     |
-| Windows     | 10             | Chromium in Electron<sup>7</sup> | 91 in 13.1.7    |                           |                              |                                     |
+| OS          | OS version     | Browser                             | Browser version | Wired Xbox 360 Controller | Wireless Xbox 360 Controller | Switch Pro Controller via Bluetooth | PS3 Controller via Bluetooth | PS2 controller with [Raphnet](https://www.raphnet-tech.com/products/psx_to_usb/index.php) USB adapter |
+| ----------- | -------------- | ----------------------------------- | --------------- | ------------------------- | ---------------------------- | ----------------------------------- | ---------------------------- | ----------------------------------------------------------------------------------------------------- |
+| **macOS**   | Big Sur 11.5.1 | Safari<sup>10,11</sup>              | 14.1.2          | ❌ &nbsp;<sup>1</sup>     | ❌ &nbsp;<sup>4</sup>        | ✅ &nbsp;<sup>3,8,9</sup>           |
+| macOS       | Big Sur 11.5.1 | Chrome<sup>7,12</sup>               | 92.0.4515.107   | ✅ &nbsp;<sup>2</sup>     | ❌ &nbsp;<sup>4</sup>        | ✅ &nbsp;<sup>3</sup>               |
+| macOS       | Big Sur 11.5.1 | Firefox                             | 90.0.2          | ❌ &nbsp;<sup>1</sup>     | ❌ &nbsp;<sup>4</sup>        | ❌ &nbsp;<sup>1</sup>               |
+| macOS       | Big Sur 11.5.1 | Chromium in Electron<sup>7,12</sup> | 91 in 13.1.7    | ✅ &nbsp;<sup>2</sup>     | ❌ &nbsp;<sup>4</sup>        | ✅ &nbsp;<sup>3</sup>               |
+| **Ubuntu**  | 20.04          | Chrome<sup>7,12</sup>               | 92.0.4515.107   | ✅                        |                              | ✅                                  |
+| Ubuntu      | 20.04          | Chromium<sup>7,12</sup>             | 92.0.4515.107   | ❌ &nbsp;<sup>6</sup>     |                              | ❌ &nbsp;<sup>6</sup>               |
+| Ubuntu      | 20.04          | Firefox                             | 90.0            | ✅ &nbsp;<sup>5</sup>     |                              | ✅                                  |
+| Ubuntu      | 20.04          | Chromium in Electron<sup>7,12</sup> | 91 in 13.1.7    | ✅                        |                              | ✅                                  |
+| **Windows** | 10             | Chrome<sup>7,12</sup>               |                 |                           |                              |                                     |
+| Windows     | 10             | Firefox                             |                 |                           |                              |                                     |
+| Windows     | 10             | Edge<sup>7,12</sup>                 |                 |                           |                              |                                     |
+| Windows     | 10             | Chromium in Electron<sup>7,12</sup> | 91 in 13.1.7    |                           |                              |                                     |
 
 1. This controller never shows up.
 2. The Wired Xbox 360 Controller on macOS Big Sur can only be connected to one browser at a time. To change that browser, close the connected browser, refresh the new browser and disconnect and reconnect the controller.
-3. The Switch Pro Controller on macOS Big Sur shows up as two controllers. Each controller has a different name and different button counts. Often one of the controllers doesn't respond to all inputs, while the other responds perfectly. One has the `vibrationActuator` nulled out in Chromium browsers.
+3. The Switch Pro Controller on macOS Big Sur shows up as two controllers. Each controller has a different name and different button counts. Often one of the controllers doesn't respond to all inputs, while the other responds perfectly. One has the `vibrationActuator` nulled out in Chromium browsers. (This is really bad for Chromium because it means only 2-3 players can connect.)
 4. The Wireless Xbox 360 Controller receiver has no drivers for macOS Big Sur. The receiver does not even turn on.
 5. Pressure sensitive triggers are each mapped as an axis instead of a button with a percentile value (which is how every other browser does it).
 6. Chromium instantly crashes on Ubuntu whenever I try to connect any controller.
@@ -44,10 +44,11 @@ Empty spots will be filled in over time. Feel free to contribute!
     ```
     navigator.getGamepads()[0].vibrationActuator.playEffect('dual-rumble', {duration: 1000, strongMagnitude: 1, weakMagnitude: 1}).then(result => console.log(result)).catch(error => console.error(error))
     ```
-8. If you play around with multiple browsers accessing the same controller, _this_ browser often loses the ability to read axis values (buttons still work).
-9. In Safari, the `-` button is super laggy and the screen recording button does not get picked up at all.
+8. If you play around with multiple browsers accessing the same controller, Safari browser often loses the ability to read axis values (buttons still work). Disconnecting and reconnecting the controller fixes this.
+9. In Safari, the `-` button is super laggy and the screen recording button does not get picked up at all. (Sometimes these buttons try to trigger Safari screen recording.)
 10. Safari does not support haptic feedback (rumbling) at all.
 11. Safari will stop reading inputs (I'm guessing it pauses `requestAnimationFrame`) when it's not the focused app (in the background). Other browsers will continue to update.
+12. Chromium browsers restrict controller connections to a max of 4.
 
 ## Naming
 
