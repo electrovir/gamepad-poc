@@ -2,7 +2,7 @@
     "name": "gamepad-poc",
     "version": "0.0.1",
     "private": true,
-    "description": "Proof of concept for reading gamepad input",
+    "description": "Proof of concept for reading gamepad input in browsers",
     "homepage": "https://github.com/electrovir/gamepad-poc",
     "bugs": {
         "url": "https://github.com/electrovir/gamepad-poc/issues"
@@ -13,11 +13,12 @@
     },
     "license": "MIT",
     "author": {
-        "name": "electrovir"
+        "name": "electrovir",
+        "url": "https://github.com/electrovir"
     },
     "scripts": {
         "start": "snowpack dev",
-        "start:tron": "electron-snowpack dev",
+        "electron": "electron-snowpack dev",
         "format": "virmator format"
     },
     "dependencies": {
