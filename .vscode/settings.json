@@ -20,6 +20,9 @@
     "[typescript]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
+    "[yml]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
     "cSpell.words": ["accum"],
     "editor.formatOnSave": true,
     "editor.rulers": [100],

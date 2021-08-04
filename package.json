@@ -17,9 +17,10 @@
         "url": "https://github.com/electrovir"
     },
     "scripts": {
-        "start": "snowpack dev",
+        "build": "snowpack build",
         "electron": "electron-snowpack dev",
-        "format": "virmator format"
+        "format": "virmator format",
+        "start": "snowpack dev"
     },
     "dependencies": {
         "snowpack": "^3.8.3",
