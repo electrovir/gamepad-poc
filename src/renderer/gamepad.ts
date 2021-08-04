@@ -1,8 +1,8 @@
 const haveEvents = 'ongamepadconnected' in window;
-const controllers: Record<number, Gamepad> = {};
+const globalGamepads: Record<number, Gamepad> = {};
 
-export function controllerConnected(e: GamepadEvent) {
-    addGamepad(e.gamepad);
+export function controllerConnected(gamepadEvent: GamepadEvent) {
+    addGamepad(gamepadEvent.gamepad);
 }
 
 function getGamepadInfo(gamepad: Gamepad): string {
@@ -20,7 +20,7 @@ function getGamepadInfo(gamepad: Gamepad): string {
 }
 
 function addGamepad(gamepad: Gamepad) {
-    controllers[gamepad.index] = gamepad;
+    globalGamepads[gamepad.index] = gamepad;
 
     const controllerDiv = document.createElement('div');
     controllerDiv.setAttribute('id', 'controller' + gamepad.index);
@@ -66,14 +66,33 @@ function addGamepad(gamepad: Gamepad) {
     requestAnimationFrame(updateStatus);
 }
 
-export function controllerDisconnected(e: GamepadEvent) {
-    removeGamepad(e.gamepad);
+export function controllerDisconnected(gamepadEvent: GamepadEvent) {
+    removeGamepad(gamepadEvent.gamepad);
 }
 
 function removeGamepad(gamepad: Gamepad) {
     const controllerDiv = document.getElementById('controller' + gamepad.index);
     controllerDiv && document.body.removeChild(controllerDiv);
-    delete controllers[gamepad.index];
+    delete globalGamepads[gamepad.index];
+}
+
+function readButtonValue(
+    button:
+        | GamepadButton
+        // in some browsers the button is actually just the raw value number
+        | number,
+): {pressed: boolean; value: number} {
+    if (typeof button === 'number') {
+        return {
+            pressed: button > 0,
+            value: button,
+        };
+    } else {
+        return {
+            pressed: button.pressed || button.touched,
+            value: button.value,
+        };
+    }
 }
 
 function updateStatus() {
@@ -81,7 +100,7 @@ function updateStatus() {
         scanGamepads();
     }
 
-    Object.values(controllers).forEach((controller) => {
+    Object.values(globalGamepads).forEach((controller) => {
         const controllerDiv = document.getElementById('controller' + controller.index);
         const allButtonsDiv = Array.from(
             controllerDiv!.getElementsByClassName('button'),
@@ -89,15 +108,9 @@ function updateStatus() {
 
         controller.buttons.forEach((button, buttonIndex) => {
             const buttonSpan = allButtonsDiv[buttonIndex];
-            // account for spec differences with as any
-            let val: any = button;
-            let pressed = val == 1.0;
-            if (typeof val == 'object') {
-                pressed = val.pressed;
-                val = val.value;
-            }
+            const {value, pressed} = readButtonValue(button);
 
-            const pct = Math.round(val * 100) + '%';
+            const pct = Math.round(value * 100) + '%';
             buttonSpan!.style.backgroundSize = pct + ' ' + pct;
 
             if (pressed) {
@@ -119,16 +132,16 @@ function updateStatus() {
 }
 
 function scanGamepads() {
-    const gamepads: Gamepad[] = navigator.getGamepads
+    const currentGamepads: Gamepad[] = navigator.getGamepads
         ? // array from needed for Chrome which does not give us an actual array here
           Array.from(navigator.getGamepads())
         : (navigator as any).webkitGetGamepads
         ? (navigator as any).webkitGetGamepads()
         : [];
-    gamepads.forEach((gamepad) => {
+    currentGamepads.forEach((gamepad) => {
         if (gamepad) {
-            if (gamepad.index in controllers) {
-                controllers[gamepad.index] = gamepad;
+            if (gamepad.index in globalGamepads) {
+                globalGamepads[gamepad.index] = gamepad;
             } else {
                 addGamepad(gamepad);
             }
