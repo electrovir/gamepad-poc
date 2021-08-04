@@ -5,14 +5,28 @@ export function controllerConnected(e: GamepadEvent) {
     addGamepad(e.gamepad);
 }
 
+function getGamepadInfo(gamepad: Gamepad): string {
+    return (Object.keys(gamepad.constructor.prototype) as (keyof Gamepad)[])
+        .map((gamepadKey) => {
+            const rawValue = gamepad[gamepadKey];
+            const displayValue: string = Array.isArray(rawValue)
+                ? `Array(${rawValue.length})`
+                : rawValue && typeof rawValue === 'object'
+                ? `${rawValue.constructor.name}`
+                : String(rawValue);
+            return `${gamepadKey}: ${displayValue}`;
+        })
+        .join('\n');
+}
+
 function addGamepad(gamepad: Gamepad) {
     controllers[gamepad.index] = gamepad;
 
     const controllerDiv = document.createElement('div');
     controllerDiv.setAttribute('id', 'controller' + gamepad.index);
 
-    const controllerTitle = document.createElement('h1');
-    controllerTitle.appendChild(document.createTextNode('gamepad: ' + gamepad.id));
+    const controllerTitle = document.createElement('pre');
+    controllerTitle.innerHTML = getGamepadInfo(gamepad);
     controllerDiv.appendChild(controllerTitle);
 
     const allButtonsDiv = document.createElement('div');
