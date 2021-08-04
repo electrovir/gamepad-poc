@@ -1,3 +1,5 @@
+import {ChromeGamepad, GamepadHapticActuatorType} from './chrome-gamepad';
+
 const haveEvents = 'ongamepadconnected' in window;
 const globalGamepads: Record<number, Gamepad> = {};
 
@@ -17,30 +19,6 @@ function getGamepadInfo(gamepad: Gamepad): string {
             return `${gamepadKey}: ${displayValue}`;
         })
         .join('\n');
-}
-
-type GamepadEffectParameters = {
-    duration: number;
-    strongMagnitude: number;
-    weakMagnitude: number;
-    startDelay: number;
-};
-enum GamepadHapticActuatorType {
-    dualRumble = 'dual-rumble',
-}
-type PlayEffectResult = 'complete';
-
-interface GamepadHapticActuator {
-    readonly type: GamepadHapticActuatorType;
-    playEffect(
-        type: GamepadHapticActuatorType,
-        options: Partial<GamepadEffectParameters>,
-    ): Promise<PlayEffectResult>;
-}
-
-// for haptics differences
-interface ChromeGamepad extends Omit<Gamepad, 'hapticActuators'> {
-    vibrationActuator: GamepadHapticActuator;
 }
 
 function activateRumble(gamepad: Gamepad | ChromeGamepad) {
@@ -80,7 +58,7 @@ function addGamepad(gamepad: Gamepad) {
     const rumbleButton = document.createElement('button');
     if (!hasRumble(gamepad)) {
         rumbleButton.disabled = true;
-        rumbleButton.title = 'Not supported';
+        rumbleButton.title = 'Not supported by this browser and/or controller.';
     }
     rumbleButton.classList.add('rumble-button');
     rumbleButton.onclick = () => activateRumble(gamepad);
