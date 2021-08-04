@@ -3,11 +3,11 @@
     <head>
         <meta charset="utf-8" />
         <!--
-Gamepad API Test
-Written in 2013 by Ted Mielczarek <ted@mielczarek.org>
-To the extent possible under law, the author(s) have dedicated all copyright and related and neighboring rights to this software to the public domain worldwide. This software is distributed without any warranty.
-You should have received a copy of the CC0 Public Domain Dedication along with this software. If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
--->
+            Gamepad API Test
+            Written in 2013 by Ted Mielczarek <ted@mielczarek.org>
+            To the extent possible under law, the author(s) have dedicated all copyright and related and neighboring rights to this software to the public domain worldwide. This software is distributed without any warranty.
+            You should have received a copy of the CC0 Public Domain Dedication along with this software. If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
+        -->
         <script type="module" src="dist/index.js"></script>
         <style>
             .axes {
@@ -50,16 +50,25 @@ You should have received a copy of the CC0 Public Domain Dedication along with t
                 font-size: 0.8em;
                 opacity: 0.7;
             }
+
+            .electron-versions {
+                display: none;
+            }
         </style>
     </head>
     <body>
-        We are using Node.js
-        <span id="node-version"></span>
-        , Chromium
-        <span id="chrome-version"></span>
-        , and Electron
-        <span id="electron-version"></span>
-        .
+        <div class="electron-versions">
+            Electron dependency versions:
+            <br />
+            Node.js:
+            <span id="node-version"></span>
+            <br />
+            Chromium:
+            <span id="chrome-version"></span>
+            <br />
+            Electron:
+            <span id="electron-version"></span>
+        </div>
         <h2 id="start">Press a button on your controller to start</h2>
     </body>
 </html>

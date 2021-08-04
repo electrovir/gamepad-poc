@@ -5,6 +5,11 @@
 // All of the Node.js APIs are available in the preload process.
 // It has the same sandbox as a Chrome extension.
 window.addEventListener('DOMContentLoaded', () => {
+    const versions = document.querySelector('.electron-versions');
+    if (!(versions instanceof HTMLElement)) {
+        throw new Error(`Could not find versions div`);
+    }
+    versions.style.display = 'block';
     const replaceText = (selector: any, text: any) => {
         const element = document.getElementById(selector);
         if (element) element.innerText = text;
