@@ -4,6 +4,12 @@ Proof of concept for reading gamepad input [using the browser Gamepad API](https
 
 # Usage
 
+## Live demo
+
+[https://electrovir.github.io/gamepad-poc/](https://electrovir.github.io/gamepad-poc/)
+
+## Local dev
+
 ```sh
 git clone https://github.com/electrovir/gamepad-poc.git
 cd gamepad-poc
