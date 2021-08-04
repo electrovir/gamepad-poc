@@ -23,7 +23,7 @@ Empty spots will be filled in over time. Feel free to contribute!
 | ----------- | -------------- | ----------------------------------- | --------------- | ------------------------- | ---------------------------- | ----------------------------------- | ---------------------------- | ----------------------------------------------------------------------------------------------------- |
 | **macOS**   | Big Sur 11.5.1 | Safari<sup>10,11</sup>              | 14.1.2          | ❌ <sup>1</sup>           | ❌ <sup>4</sup>              | ✅ <sup>3,8,9</sup>                 |
 | macOS       | Big Sur 11.5.1 | Chrome<sup>7,12</sup>               | 92.0.4515.107   | ✅ <sup>2</sup>           | ❌ <sup>4</sup>              | ✅ <sup>3</sup>                     |
-| macOS       | Big Sur 11.5.1 | Firefox                             | 90.0.2          | ❌ <sup>1</sup>           | ❌ <sup>4</sup>              | ❌ <sup>1</sup>                     |
+| macOS       | Big Sur 11.5.1 | Firefox                             | 90.0.2          | ❌ <sup>1</sup>           | ❌ <sup>4</sup>              | ❌ <sup>13</sup>                    |
 | macOS       | Big Sur 11.5.1 | Chromium in Electron<sup>7,12</sup> | 91 in 13.1.7    | ✅ <sup>2</sup>           | ❌ <sup>4</sup>              | ✅ <sup>3</sup>                     |
 | **Ubuntu**  | 20.04          | Chrome<sup>7,12</sup>               | 92.0.4515.107   | ✅                        |                              | ✅                                  |
 | Ubuntu      | 20.04          | Chromium<sup>7,12</sup>             | 92.0.4515.107   | ❌ <sup>6</sup>           |                              | ❌ <sup>6</sup>                     |
@@ -49,6 +49,7 @@ Empty spots will be filled in over time. Feel free to contribute!
 10. Safari does not support haptic feedback (rumbling) at all.
 11. Safari will stop reading inputs (I'm guessing it pauses `requestAnimationFrame`) when it's not the focused app (in the background). Other browsers will continue to update.
 12. Chromium browsers restrict controller connections to a max of 4.
+13. Sometimes this controller will connect to Firefox but it fails to read any input. Might be my code, but it works in all other browsers so far.
 
 ## Naming
 

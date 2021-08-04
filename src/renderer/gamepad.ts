@@ -19,7 +19,55 @@ function getGamepadInfo(gamepad: Gamepad): string {
         .join('\n');
 }
 
+type GamepadEffectParameters = {
+    duration: number;
+    strongMagnitude: number;
+    weakMagnitude: number;
+    startDelay: number;
+};
+enum GamepadHapticActuatorType {
+    dualRumble = 'dual-rumble',
+}
+type PlayEffectResult = 'complete';
+
+interface GamepadHapticActuator {
+    readonly type: GamepadHapticActuatorType;
+    playEffect(
+        type: GamepadHapticActuatorType,
+        options: Partial<GamepadEffectParameters>,
+    ): Promise<PlayEffectResult>;
+}
+
+// for haptics differences
+interface ChromeGamepad extends Omit<Gamepad, 'hapticActuators'> {
+    vibrationActuator: GamepadHapticActuator;
+}
+
+function activateRumble(gamepad: Gamepad | ChromeGamepad) {
+    const rumble = {duration: 500, intensity: 1};
+
+    if ('hapticActuators' in gamepad) {
+        gamepad.hapticActuators.forEach((actuator) => {
+            actuator.pulse(rumble.intensity, rumble.duration);
+        });
+    } else if ('vibrationActuator' in gamepad) {
+        gamepad.vibrationActuator.playEffect(GamepadHapticActuatorType.dualRumble, {
+            duration: rumble.duration,
+            weakMagnitude: rumble.intensity,
+            strongMagnitude: rumble.intensity,
+        });
+    }
+}
+
+function hasRumble(gamepad: Gamepad | ChromeGamepad): boolean {
+    return (
+        ('hapticActuators' in gamepad && !!gamepad.hapticActuators.length) ||
+        ('vibrationActuator' in gamepad && !!gamepad.vibrationActuator)
+    );
+}
+
 function addGamepad(gamepad: Gamepad) {
+    console.info(`adding gamepad ${gamepad.index}`, gamepad);
     globalGamepads[gamepad.index] = gamepad;
 
     const controllerDiv = document.createElement('div');
@@ -28,6 +76,16 @@ function addGamepad(gamepad: Gamepad) {
     const controllerTitle = document.createElement('pre');
     controllerTitle.innerHTML = getGamepadInfo(gamepad);
     controllerDiv.appendChild(controllerTitle);
+
+    const rumbleButton = document.createElement('button');
+    if (!hasRumble(gamepad)) {
+        rumbleButton.disabled = true;
+        rumbleButton.title = 'Not supported';
+    }
+    rumbleButton.classList.add('rumble-button');
+    rumbleButton.onclick = () => activateRumble(gamepad);
+    rumbleButton.innerText = 'Rumble';
+    controllerDiv.appendChild(rumbleButton);
 
     const allButtonsDiv = document.createElement('div');
     allButtonsDiv.className = 'buttons';
