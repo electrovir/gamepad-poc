@@ -50,8 +50,8 @@ Empty spots will be filled in over time. Feel free to contribute!
     ```
     navigator.getGamepads()[0].vibrationActuator.playEffect('dual-rumble', {duration: 1000, strongMagnitude: 1, weakMagnitude: 1}).then(result => console.log(result)).catch(error => console.error(error))
     ```
-8. If you play around with multiple browsers accessing the same controller, Safari browser often loses the ability to read axis values (buttons still work). Disconnecting and reconnecting the controller fixes this.
-9. In Safari, the `-` button is super laggy and the screen recording button does not get picked up at all. (Sometimes these buttons try to trigger Safari screen recording.)
+8. If you play around with multiple browsers accessing the same controller, Safari often loses the ability to read axis values (buttons still work). Disconnecting controller, quitting Safari, reopening Safari, and reconnecting the controller fixes this.
+9. In Safari, the Switch Pro controller's `-` button is super laggy and the screenshot button does not get picked up at all. (Sometimes these buttons try to trigger Safari screen recording.)
 10. Safari does not support haptic feedback (rumbling) at all.
 11. Safari will stop reading inputs (I'm guessing it pauses `requestAnimationFrame`) when it's not the focused app (in the background). Other browsers will continue to update.
 12. Chromium browsers restrict controller connections to a max of 4.
