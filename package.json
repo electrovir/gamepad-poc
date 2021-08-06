@@ -1,6 +1,6 @@
 {
     "name": "gamepad-poc",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "private": true,
     "description": "Proof of concept for reading gamepad input in browsers",
     "homepage": "https://github.com/electrovir/gamepad-poc",
@@ -52,6 +52,12 @@
         },
         "productName": "Gamepad POC",
         "copyright": "Copyright © 2021 electrovir",
-        "extends": "electron-snowpack/config/electron-builder.js"
+        "extends": "electron-snowpack/config/electron-builder.js",
+        "publish": [
+            {
+                "provider": "github",
+                "releaseType": "release"
+            }
+        ]
     }
 }
