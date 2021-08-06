@@ -36,7 +36,7 @@ Empty spots will be filled in over time. Feel free to contribute!
 | Ubuntu      | 20.04          | Firefox                             | 90.0            | ✅ <sup>5</sup>           |                              | ✅                                  |
 | Ubuntu      | 20.04          | Chromium in Electron<sup>7,12</sup> | 91 in 13.1.7    | ✅                        |                              | ✅                                  |
 | **Windows** | 10             | Chrome<sup>7,12</sup>               | 92.0.4515.131   | ✅                        | ✅                           |                                     |
-| Windows     | 10             | Firefox<sup>14</sup>                | 90.0            | ✅ <sup>15</sup>          | ✅ <sup>15</sup>             |                                     |
+| Windows     | 10             | Firefox<sup>14</sup>                | 90.0            | ✅ <sup>10</sup>          | ✅ <sup>10</sup>             |                                     |
 | Windows     | 10             | Edge<sup>7,12</sup>                 | 92.0.902.62     | ✅                        | ✅                           |                                     |
 | Windows     | 10             | Chromium in Electron<sup>7,12</sup> | 91 in 13.1.7    |                           |                              |                                     |
 
@@ -52,12 +52,11 @@ Empty spots will be filled in over time. Feel free to contribute!
     ```
 8. If you play around with multiple browsers accessing the same controller, Safari often loses the ability to read axis values (buttons still work). Disconnecting controller, quitting Safari, reopening Safari, and reconnecting the controller fixes this.
 9. In Safari, the Switch Pro controller's `-` button is super laggy and the screenshot button does not get picked up at all. (Sometimes these buttons try to trigger Safari screen recording.)
-10. Safari does not support haptic feedback (rumbling) at all.
+10. No haptic support.
 11. Safari will stop reading inputs (I'm guessing it pauses `requestAnimationFrame`) when it's not the focused app (in the background). Other browsers will continue to update.
 12. Chromium browsers restrict controller connections to a max of 4.
 13. Sometimes this controller will connect to Firefox but it fails to read any input. Might be my code, but it works in all other browsers so far.
 14. Firefox on Windows is not rendering this repo at 60fps.
-15. No hpatic support.
 
 ## Naming
 
