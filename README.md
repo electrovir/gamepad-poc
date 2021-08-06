@@ -35,9 +35,9 @@ Empty spots will be filled in over time. Feel free to contribute!
 | Ubuntu      | 20.04          | Chromium<sup>7,12</sup>             | 92.0.4515.107   | ❌ <sup>6</sup>           |                              | ❌ <sup>6</sup>                     |
 | Ubuntu      | 20.04          | Firefox                             | 90.0            | ✅ <sup>5</sup>           |                              | ✅                                  |
 | Ubuntu      | 20.04          | Chromium in Electron<sup>7,12</sup> | 91 in 13.1.7    | ✅                        |                              | ✅                                  |
-| **Windows** | 10             | Chrome<sup>7,12</sup>               |                 |                           |                              |                                     |
-| Windows     | 10             | Firefox                             |                 |                           |                              |                                     |
-| Windows     | 10             | Edge<sup>7,12</sup>                 |                 |                           |                              |                                     |
+| **Windows** | 10             | Chrome<sup>7,12</sup>               |     92.0.4515.131            |  ✅                         |    ✅                           |                                     |
+| Windows     | 10             | Firefox<sup>14</sup>                             |      90.0           |    ✅ <sup>15</sup>                       |        ✅ <sup>15</sup>                       |                                     |
+| Windows     | 10             | Edge<sup>7,12</sup>                 |   92.0.902.62              |    ✅                       |      ✅                        |                                     |
 | Windows     | 10             | Chromium in Electron<sup>7,12</sup> | 91 in 13.1.7    |                           |                              |                                     |
 
 1. This controller never shows up.
@@ -56,6 +56,8 @@ Empty spots will be filled in over time. Feel free to contribute!
 11. Safari will stop reading inputs (I'm guessing it pauses `requestAnimationFrame`) when it's not the focused app (in the background). Other browsers will continue to update.
 12. Chromium browsers restrict controller connections to a max of 4.
 13. Sometimes this controller will connect to Firefox but it fails to read any input. Might be my code, but it works in all other browsers so far.
+14. Firefox on Windows is not rendering this repo at 60fps.
+15. No hpatic support.
 
 ## Naming
 
@@ -71,7 +73,7 @@ Each controller is named something slightly different in each situation.
 | Ubuntu      | 20.04          | Chromium             | 92.0.4515.107   |                                                                     |                              |                                                                                                                              |
 | Ubuntu      | 20.04          | Firefox              | 90.0            |                                                                     |                              |                                                                                                                              |
 | Ubuntu      | 20.04          | Chromium in Electron | 91 in 13.1.7    |                                                                     |                              |                                                                                                                              |
-| **Windows** | 10             | Chrome               |                 |                                                                     |                              |                                                                                                                              |
-| Windows     | 10             | Firefox              |                 |                                                                     |                              |                                                                                                                              |
-| Windows     | 10             | Edge                 |                 |                                                                     |                              |                                                                                                                              |
+| **Windows** | 10             | Chrome               |  92.0.4515.131               |   `Xbox 360 Controller (XInput STANDARD GAMEPAD)`     |        `Xbox 360 Controller (XInput STANDARD GAMEPAD)`                      |                                                                                                                              |
+| Windows     | 10             | Firefox              |    90.0             |                  `xinput`                                                   |    `xinput`                          |                                                                                                                              |
+| Windows     | 10             | Edge                 |      92.0.902.62           |      `Xbox 360 Controller (XInput STANDARD GAMEPAD)`                |       `Xbox 360 Controller (XInput STANDARD GAMEPAD)`                       |                                                                                                                              |
 | Windows     | 10             | Chromium in Electron | 91 in 13.1.7    |                                                                     |                              |                                                                                                                              |
