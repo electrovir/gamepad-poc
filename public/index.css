@@ -54,7 +54,7 @@ progress::-moz-progress-value {
 
     height: 48px;
     width: 48px;
-    margin: 0 4px;
+    margin: 4px;
 
     border-radius: 50%;
     position: relative;

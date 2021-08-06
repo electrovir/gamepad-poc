@@ -5,6 +5,7 @@
         "declaration": true,
         "declarationMap": false,
         "forceConsistentCasingInFileNames": true,
+        "module": "CommonJS",
         "noImplicitAny": true,
         "noImplicitReturns": true,
         "noImplicitThis": true,

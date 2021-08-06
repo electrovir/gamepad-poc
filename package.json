@@ -17,19 +17,20 @@
         "url": "https://github.com/electrovir"
     },
     "scripts": {
-        "build": "snowpack build",
+        "build": "snowpack build && ts-node src/build/post-build-scripts.ts dist/renderer",
         "electron": "electron-snowpack dev",
         "format": "virmator format",
         "start": "snowpack dev"
     },
     "dependencies": {
-        "bowser": "^2.11.0",
-        "snowpack": "^3.8.3",
-        "virmator": "^0.0.7"
+        "bowser": "^2.11.0"
     },
     "devDependencies": {
         "electron": "^13.1.7",
-        "electron-snowpack": "^0.12.0"
+        "electron-snowpack": "^0.12.0",
+        "snowpack": "^3.8.3",
+        "ts-node": "^10.1.0",
+        "virmator": "^0.0.7"
     },
     "build": {
         "extends": "electron-snowpack/config/electron-builder.js"
