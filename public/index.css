@@ -1,0 +1,98 @@
+body {
+    font-family: sans-serif;
+}
+
+.controller {
+    display: flex;
+    flex-direction: column;
+}
+
+.controller > * + * {
+    margin-top: 24px;
+}
+
+progress {
+    width: 200px;
+    margin: 24px;
+    border-radius: 8px;
+    height: 16px;
+    border: 2px solid grey;
+}
+progress::-webkit-progress-bar {
+    border-radius: 8px;
+    background-color: white;
+}
+
+progress::-moz-progress-bar {
+    border-radius: 8px;
+    background-color: white;
+}
+
+progress::-webkit-progress-value {
+    border-radius: 8px;
+    background-color: blue;
+    border: none;
+}
+
+progress::-moz-progress-value {
+    border-radius: 8px;
+    background-color: blue;
+    border: none;
+}
+
+.controller button {
+    align-self: flex-start;
+    margin-right: 16px;
+    margin-left: 16px;
+}
+
+.button {
+    display: inline-flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+
+    height: 48px;
+    width: 48px;
+    margin: 0 4px;
+
+    border-radius: 50%;
+    position: relative;
+    border: 2px solid grey;
+}
+
+table {
+    align-self: flex-start;
+    font-size: 16px;
+    text-align: left;
+}
+
+table th {
+    padding-right: 4px;
+}
+
+.button-text {
+    position: relative;
+}
+
+.button-background {
+    background-color: cyan;
+    border-radius: 50%;
+    position: absolute;
+}
+
+.pressed {
+    border-color: blue;
+}
+
+.electron-versions {
+    display: none;
+}
+
+.error {
+    color: red;
+}
+
+.versions {
+    text-align: left;
+}

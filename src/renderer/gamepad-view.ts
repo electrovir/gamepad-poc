@@ -1,18 +1,27 @@
 import {ChromeGamepad} from './chrome-gamepad';
 import {activateRumble, readButtonValue} from './gamepad-api';
+import {queryDocument, queryDocumentAll} from './query';
+
+function getGamepadDisplayValue(rawValue: any): string {
+    if (Array.isArray(rawValue)) {
+        return `Array(${rawValue.length})`;
+    } else if (rawValue && typeof rawValue === 'object') {
+        return `${rawValue.constructor.name}`;
+    } else if (typeof rawValue === 'string') {
+        return `"${rawValue}"`;
+    } else {
+        return rawValue;
+    }
+}
 
 function getGamepadInfo(gamepad: Gamepad): string {
     return (Object.keys(gamepad.constructor.prototype) as (keyof Gamepad)[])
         .map((gamepadKey) => {
-            const rawValue = gamepad[gamepadKey];
-            const displayValue: string = Array.isArray(rawValue)
-                ? `Array(${rawValue.length})`
-                : rawValue && typeof rawValue === 'object'
-                ? `${rawValue.constructor.name}`
-                : String(rawValue);
-            return `${gamepadKey}: ${displayValue}`;
+            return `<tr><th>${gamepadKey}:</th><td>${getGamepadDisplayValue(
+                gamepad[gamepadKey],
+            )}</td></tr>`;
         })
-        .join('\n');
+        .join('');
 }
 
 function hasRumble(gamepad: Gamepad | ChromeGamepad): boolean {
@@ -20,28 +29,6 @@ function hasRumble(gamepad: Gamepad | ChromeGamepad): boolean {
         ('hapticActuators' in gamepad && !!gamepad.hapticActuators.length) ||
         ('vibrationActuator' in gamepad && !!gamepad.vibrationActuator)
     );
-}
-
-function queryDocument(query: string): HTMLElement {
-    const queryResult = document.querySelector(query);
-    if (!(queryResult instanceof HTMLElement)) {
-        throw new Error(`No match for query "${query}"`);
-    }
-
-    return queryResult;
-}
-
-function queryDocumentAll(query: string): HTMLElement[] {
-    const queryResults = document.querySelectorAll(query);
-    const filteredQueries = Array.from(queryResults).filter(
-        (queryResult): queryResult is HTMLElement => queryResult instanceof HTMLElement,
-    );
-    const diff = queryResults.length - filteredQueries.length;
-    if (diff) {
-        throw new Error(`${diff} query matches were invalid "${query}"`);
-    }
-
-    return filteredQueries;
 }
 
 export function removeGamepadView(gamepad: Gamepad) {
@@ -61,7 +48,7 @@ export function createGamepadView(gamepad: Gamepad) {
     controllerDiv.setAttribute('id', 'controller' + gamepad.index);
     controllerDiv.classList.add('controller');
 
-    const controllerTitle = document.createElement('pre');
+    const controllerTitle = document.createElement('table');
     controllerTitle.innerHTML = getGamepadInfo(gamepad);
     controllerDiv.appendChild(controllerTitle);
 
@@ -78,11 +65,19 @@ export function createGamepadView(gamepad: Gamepad) {
     const allButtonsDiv = document.createElement('div');
     allButtonsDiv.className = 'buttons';
     gamepad.buttons.forEach((button, index) => {
-        const buttonSpan = document.createElement('span');
-        buttonSpan.className = 'button';
-        //e.id = "b" + i;
-        buttonSpan.innerHTML = String(index);
-        allButtonsDiv.appendChild(buttonSpan);
+        const buttonDiv = document.createElement('div');
+        buttonDiv.className = 'button';
+
+        const backgroundSpan = document.createElement('span');
+        backgroundSpan.classList.add('button-background');
+        buttonDiv.appendChild(backgroundSpan);
+
+        const buttonTextSpan = document.createElement('span');
+        buttonTextSpan.classList.add('button-text');
+        buttonTextSpan.innerHTML = String(index);
+        buttonDiv.appendChild(buttonTextSpan);
+
+        allButtonsDiv.appendChild(buttonDiv);
     });
 
     controllerDiv.appendChild(allButtonsDiv);
@@ -113,9 +108,9 @@ export function notSupportedView() {
     const start = queryDocument('#start');
     start.style.display = 'none';
 
-    const notSupportedHeader = document.createElement('h2');
+    const notSupportedHeader = document.createElement('h1');
     notSupportedHeader.innerHTML = 'Your browser does not support gamepads.';
-    notSupportedHeader.classList.add('unsupported');
+    notSupportedHeader.classList.add('error');
     document.body.appendChild(notSupportedHeader);
 }
 
@@ -123,16 +118,20 @@ export function updateView(gamepad: Gamepad) {
     const controllerId = `#controller${gamepad.index}`;
 
     gamepad.buttons.forEach((button, buttonIndex) => {
-        const buttonSpan = queryDocument(`${controllerId} .button:nth-child(${buttonIndex + 1})`);
+        const buttonSelector = `${controllerId} .button:nth-child(${buttonIndex + 1})`;
+
+        const buttonDiv = queryDocument(buttonSelector);
+        const buttonBackgroundSpan = queryDocument(`${buttonSelector} .button-background`);
         const {value, pressed} = readButtonValue(button);
 
-        const pct = Math.round(value * 100) + '%';
-        buttonSpan.style.backgroundSize = pct + ' ' + pct;
+        const pct = `${Math.round(value * 100)}%`;
+        buttonBackgroundSpan.style.width = pct;
+        buttonBackgroundSpan.style.height = pct;
 
         if (pressed) {
-            buttonSpan.className = 'button pressed';
+            buttonDiv.className = 'button pressed';
         } else {
-            buttonSpan.className = 'button';
+            buttonDiv.className = 'button';
         }
     });
 

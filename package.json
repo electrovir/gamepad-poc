@@ -23,6 +23,7 @@
         "start": "snowpack dev"
     },
     "dependencies": {
+        "bowser": "^2.11.0",
         "snowpack": "^3.8.3",
         "virmator": "^0.0.7"
     },
