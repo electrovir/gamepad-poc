@@ -20,10 +20,9 @@
     "[typescript]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
-    "[yml]": {
+    "[yaml]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
-    "cSpell.words": ["accum"],
     "editor.formatOnSave": true,
     "editor.rulers": [100],
     "typescript.tsdk": "node_modules/typescript/lib"

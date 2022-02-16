@@ -1,7 +1,9 @@
 import {basename} from 'path';
 import {disableJekyll} from './disable-jekyll';
 
-const scripts: ((rendererDir: string) => void)[] = [disableJekyll];
+const scripts: ((rendererDir: string) => void)[] = [
+    disableJekyll,
+];
 
 const rendererDir = process.argv[1] === basename(__filename) ? process.argv[2] : process.argv[2];
 

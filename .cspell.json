@@ -1,0 +1,16 @@
+{
+    "ignorePaths": [
+        "./build-resources/",
+        "./test-files/"
+    ],
+    "import": ".cspell-base.json",
+    "words": [
+        "asar",
+        "boxcat",
+        "browserslistrc",
+        "jsonpack",
+        "killall",
+        "precompile",
+        "unallowed"
+    ]
+}

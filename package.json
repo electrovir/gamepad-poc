@@ -1,42 +1,49 @@
 {
     "name": "gamepad-poc",
-    "version": "0.0.6",
+    "version": "1.0.0",
     "private": true,
     "description": "Proof of concept for reading gamepad input in browsers",
-    "homepage": "https://github.com/electrovir/gamepad-poc",
+    "homepage": "https://github.com/electrovir/gamepad-poc#readme",
     "bugs": {
         "url": "https://github.com/electrovir/gamepad-poc/issues"
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/electrovir/gamepad-poc"
+        "url": "git+https://github.com/electrovir/gamepad-poc.git"
     },
     "license": "MIT",
     "author": {
         "name": "electrovir",
-        "email": "electrovir@users.noreply.github.com",
         "url": "https://github.com/electrovir"
     },
+    "main": "packages/main/dist/index.cjs",
     "scripts": {
-        "build:electron": "electron-snowpack build",
-        "build:web": "snowpack build && ts-node src/build/post-build-scripts.ts dist/renderer",
-        "deploy:dir": "npm run build:electron && electron-builder --dir -mwl",
-        "deploy": "npm run build:electron && electron-builder -mwl",
-        "format": "virmator format",
-        "start:electron": "electron-snowpack dev",
-        "start:web": "snowpack dev",
-        "start": "npm run start:web"
+        "build:electron": "npm run deploy",
+        "build:web": "npm run build && ts-node src/build/post-build-scripts.ts packages/renderer/dist",
+        "build": "ts-node -P ./packages/scripts/tsconfig.json -r tsconfig-paths/register ./packages/scripts/src/build.ts",
+        "check-imports": "ts-node -P ./packages/scripts/tsconfig.json -r tsconfig-paths/register ./packages/scripts/src/check-imports.ts",
+        "precompile": "cross-env MODE=production npm run build",
+        "compile": "killall modivir; rm -rf dist && electron-builder build --config .electron-builder.config.js --dir --config.asar=false && open -n ./dist/mac-arm64/modivir.app",
+        "deploy": "npm run build && electron-builder -mwl",
+        "format": "virmator format write",
+        "frontend": "npm install && cd packages/renderer && vite --force --open --config ./vite/vite.config.ts",
+        "spellcheck": "virmator spellcheck",
+        "start": "npm run start:web",
+        "test:full": "npm run type-check && npm test && npm run spellcheck && virmator format check && npm run check-imports",
+        "type-check": "ts-node -P ./packages/scripts/tsconfig.json -r tsconfig-paths/register ./packages/scripts/src/type-check.ts"
     },
     "dependencies": {
         "bowser": "^2.11.0"
     },
     "devDependencies": {
-        "electron": "^13.1.7",
-        "electron-builder": "^22.11.7",
-        "electron-snowpack": "^0.12.0",
-        "snowpack": "^3.8.3",
-        "ts-node": "^10.1.0",
-        "virmator": "^0.0.7"
+        "cross-env": "7.0.3",
+        "electron": "17.0.1",
+        "electron-builder": "22.14.13",
+        "ts-node": "^10.5.0",
+        "tsconfig-paths": "^3.12.0",
+        "typescript": "4.5.5",
+        "virmator": "^1.4.1",
+        "vite": "^2.8.3"
     },
     "build": {
         "appId": "com.github.electrovir.gamepad-poc",
@@ -52,7 +59,6 @@
         },
         "productName": "Gamepad POC",
         "copyright": "Copyright © 2021 electrovir",
-        "extends": "electron-snowpack/config/electron-builder.js",
         "publish": [
             {
                 "provider": "github",
