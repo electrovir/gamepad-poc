@@ -20,7 +20,7 @@
     "main": "packages/main/dist/index.cjs",
     "scripts": {
         "build": "ts-node -P ./packages/scripts/tsconfig.json -r tsconfig-paths/register ./packages/scripts/src/build.ts",
-        "build:electron": "npm run deploy",
+        "build:electron": "npm run build && electron-builder",
         "build:web": "npm run build && ts-node packages/scripts/src/post-build-scripts.ts packages/renderer/dist",
         "check-imports": "ts-node -P ./packages/scripts/tsconfig.json -r tsconfig-paths/register ./packages/scripts/src/check-imports.ts",
         "precompile": "cross-env MODE=production npm run build",
