@@ -6,11 +6,19 @@
     "import": ".cspell-base.json",
     "words": [
         "asar",
+        "bowser",
         "boxcat",
         "browserslistrc",
+        "gamepad",
+        "gamepadconnected",
+        "gamepaddisconnected",
+        "gamepads",
         "jsonpack",
         "killall",
+        "laggy",
         "precompile",
+        "raphnet",
+        "samuelmeuli",
         "unallowed"
     ]
 }

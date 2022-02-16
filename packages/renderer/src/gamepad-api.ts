@@ -5,7 +5,10 @@ export function activateRumble(gamepad: Gamepad | ChromeGamepad) {
 
     if ('hapticActuators' in gamepad) {
         gamepad.hapticActuators.forEach((actuator) => {
-            actuator.pulse(rumble.intensity, rumble.duration);
+            (actuator as unknown as {pulse: (intensity: number, duration: number) => void}).pulse(
+                rumble.intensity,
+                rumble.duration,
+            );
         });
     } else if ('vibrationActuator' in gamepad) {
         gamepad.vibrationActuator.playEffect(GamepadHapticActuatorType.dualRumble, {

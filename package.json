@@ -19,18 +19,18 @@
     },
     "main": "packages/main/dist/index.cjs",
     "scripts": {
+        "build": "ts-node -P ./packages/scripts/tsconfig.json -r tsconfig-paths/register ./packages/scripts/src/build.ts",
         "build:electron": "npm run deploy",
         "build:web": "npm run build && ts-node packages/scripts/src/post-build-scripts.ts packages/renderer/dist",
-        "build": "ts-node -P ./packages/scripts/tsconfig.json -r tsconfig-paths/register ./packages/scripts/src/build.ts",
         "check-imports": "ts-node -P ./packages/scripts/tsconfig.json -r tsconfig-paths/register ./packages/scripts/src/check-imports.ts",
         "precompile": "cross-env MODE=production npm run build",
-        "compile": "killall modivir; rm -rf dist && electron-builder build --config .electron-builder.config.js --dir --config.asar=false && open -n ./dist/mac-arm64/modivir.app",
+        "compile": "killall \"Gamepad\"; rm -rf dist && electron-builder build --config .electron-builder.config.js --dir --config.asar=false && open -n \"./dist/mac-arm64/Gamepad.app\"",
         "deploy": "npm run build && electron-builder -mwl",
         "format": "virmator format write",
         "frontend": "npm install && cd packages/renderer && vite --force --open --config ./vite/vite.config.ts",
         "spellcheck": "virmator spellcheck",
         "start": "npm run start:web",
-        "test:full": "npm run type-check && npm test && npm run spellcheck && virmator format check && npm run check-imports",
+        "test:full": "npm run type-check && npm run spellcheck && virmator format check && npm run check-imports",
         "type-check": "ts-node -P ./packages/scripts/tsconfig.json -r tsconfig-paths/register ./packages/scripts/src/type-check.ts"
     },
     "dependencies": {
@@ -58,7 +58,7 @@
         "win": {
             "target": "portable"
         },
-        "productName": "Gamepad POC",
+        "productName": "Gamepad",
         "copyright": "Copyright © 2021 electrovir",
         "publish": [
             {
