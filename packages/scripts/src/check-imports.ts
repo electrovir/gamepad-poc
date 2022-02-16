@@ -3,7 +3,11 @@ import {extractMessage} from '@packages/common/src/augments/error';
 import {Package} from '@packages/common/src/environment';
 import {packageConfigPaths, packagesDir} from '@packages/common/src/file-paths';
 import {getEnumTypedValues, safeMatch} from 'augment-vir';
-import {interpolationSafeWindowsPath, runShellCommand} from 'augment-vir/dist/node';
+import {
+    interpolationSafeWindowsPath,
+    replaceWithWindowsPathIfNeeded,
+    runShellCommand,
+} from 'augment-vir/dist/node';
 import chalk from 'chalk';
 import {existsSync} from 'fs';
 
@@ -78,7 +82,7 @@ async function checkPackageImports() {
             if (!fileName) {
                 throw new Error(`Could not extract file name from ${line}`);
             }
-            if (ignoredFiles.includes(fileName)) {
+            if (ignoredFiles.includes(replaceWithWindowsPathIfNeeded(fileName))) {
                 return false;
             }
             return true;
